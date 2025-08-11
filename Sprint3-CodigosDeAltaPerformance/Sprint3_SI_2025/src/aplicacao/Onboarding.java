@@ -5,72 +5,94 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import listas.ListaCrescenteInt;
+import listas.ListaEvolucao;
+import modelos.Colaborador;
 
 public class Onboarding {
-	public static Scanner le = new Scanner(System.in);
+    public static Scanner le = new Scanner(System.in);
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        ListaEvolucao lista = new ListaEvolucao();
+        Scanner le = new Scanner(System.in);
+        geraLista(lista);
 
-		Scanner le =new Scanner(System.in);
-		geraLista();
 
-		
+        lista.show();
 
-		int opcao;
-		do {
-			System.out.println("0 - Encerrar atendimento");
-			System.out.println("1 - Obter colaboradores com piores notas presentes na lista");
-			System.out.println("2 - Atualizar nota de um colaborador");
-			System.out.println("3 - Inserir novo colaborador");
-			System.out.println("Opcao: ");
-			opcao = le.nextInt();
-			switch (opcao) {
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			default:
-				System.out.println("Opcao Invalida");
-			}
+        int opcao;
+        do {
+            System.out.println("0 - Encerrar atendimento");
+            System.out.println("1 - Obter colaboradores com piores notas presentes na lista");
+            System.out.println("2 - Atualizar nota de um colaborador");
+            System.out.println("3 - Inserir novo colaborador");
+            System.out.println("Opcao: ");
+            opcao = le.nextInt();
+            switch (opcao) {
+                case 0:
+                    break;
+                case 1:
+                    obterPioresNotasNaLista();
+                    break;
+                case 2:
+                    atualizarNotaColaborador();
+                    break;
+                case 3:
+                    inserirNovoColaborador();
+                    break;
+                default:
+                    System.out.println("Opcao Invalida");
+            }
 
-		} while (opcao != 0);
+        } while (opcao != 0);
 
-		le.close();
+        le.close();
 
-	}
+    }
 
-	public static void geraLista(/*ListaEvolucao lista*/) {
-/*Altere esse metodo para inserir um objeto da classe Colaborador na lista*/
-		String caminhoDoArquivo = "src/arquivos/Colaboradores.txt";
-		
-		try {
-			// Criar um objeto File com o caminho do arquivo
-			File arquivo = new File(caminhoDoArquivo);
+    private static void inserirNovoColaborador() {
+        System.out.println("Quantos colaboradores deseja pegar da lista?: ");
+        int quantidade = le.nextInt();
 
-			// Criar um Scanner para ler o arquivo
-			Scanner leArq = new Scanner(arquivo);
+    }
 
-			// Loop para ler linha por linha até o final do arquivo
-			while (leArq.hasNextLine()) {
-				// Ler a próxima linha
-				String linha = leArq.nextLine();
-				System.out.println(linha);
-				String[] partes = linha.split(";");
-				int id = Integer.parseInt(partes[0]);
-				String nome = partes[1];
-				String setor = partes[2];
-				String buddy = partes[3];
-				int nota = Integer.parseInt(partes[4]);
-			}
-			// Fechar o objeto da classe Scanner le
-			leArq.close();
-		} catch (FileNotFoundException e) {
-			// Caso o arquivo não seja encontrado
-			System.out.println("Arquivo não encontrado: " + e.getMessage());
-		}
-	}
+    private static void atualizarNotaColaborador() {
+    }
 
-	
+    private static void obterPioresNotasNaLista() {
+    }
+
+    public static void geraLista(ListaEvolucao lista) {
+        /*Altere esse metodo para inserir um objeto da classe Colaborador na lista*/
+        String caminhoDoArquivo = "src/arquivos/Colaboradores.txt";
+
+        try {
+            // Criar um objeto File com o caminho do arquivo
+            File arquivo = new File(caminhoDoArquivo);
+
+            // Criar um Scanner para ler o arquivo
+            Scanner leArq = new Scanner(arquivo);
+
+            // Loop para ler linha por linha atï¿½ o final do arquivo
+            while (leArq.hasNextLine()) {
+                // Ler a prï¿½xima linha
+                String linha = leArq.nextLine();
+                System.out.println(linha);
+                String[] partes = linha.split(";");
+                int id = Integer.parseInt(partes[0]);
+                String nome = partes[1];
+                String setor = partes[2];
+                String buddy = partes[3];
+                int nota = Integer.parseInt(partes[4]);
+                Colaborador colaborador = new Colaborador(id, nome, setor, buddy, nota);
+                lista.add(colaborador);
+            }
+            // Fechar o objeto da classe Scanner le
+            leArq.close();
+        } catch (FileNotFoundException e) {
+            // Caso o arquivo nï¿½o seja encontrado
+            System.out.println("Arquivo nï¿½o encontrado: " + e.getMessage());
+        }
+    }
+
+
 }
