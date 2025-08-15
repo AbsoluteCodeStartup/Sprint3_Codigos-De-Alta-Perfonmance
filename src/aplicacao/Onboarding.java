@@ -26,6 +26,7 @@ public class Onboarding {
             opcao = le.nextInt();
             switch (opcao) {
                 case 0:
+                    listarFinalizarPrograma();
                     break;
                 case 1:
                     obterPioresNotasNaLista(lista);
@@ -44,6 +45,9 @@ public class Onboarding {
 
         le.close();
 
+    }
+// TODO
+    private static void listarFinalizarPrograma() {
     }
 
     private static void obterPioresNotasNaLista(ListaEvolucao lista) {
@@ -66,7 +70,6 @@ public class Onboarding {
     //TODO
     private static void atualizarNotaColaborador(ListaEvolucao lista) {
     }
-    //TODO
     private static void inserirNovoColaborador(ListaEvolucao lista) {
         System.out.print("ID: ");
         int id = le.nextInt();
@@ -76,9 +79,8 @@ public class Onboarding {
         String setor = le.next();
         System.out.print("Buddy: ");
         String buddy = le.next();
-
-
         lista.add(new Colaborador(id, nome, setor, buddy,-1));
+        System.out.println("Colaborador adicionado com sucesso!");
     }
 
 

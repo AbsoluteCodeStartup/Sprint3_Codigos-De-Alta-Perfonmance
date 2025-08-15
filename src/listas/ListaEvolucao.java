@@ -18,9 +18,17 @@ public class ListaEvolucao {
     public void add(Colaborador colaboradorASerAdicionado) {
         NO novo = new NO();
         novo.colaborador = colaboradorASerAdicionado;
+        novo.prox = null;
+
         if (isEmpty()) {
             lista = novo;
-            novo.prox = null;
+        } else if (colaboradorASerAdicionado.getNota() == -1) {
+            // Colaboradores que sao adicionados ficarao no final da lista, a fim de facilitar na listagem final e para organizacao.
+            NO aux = lista;
+            while (aux.prox != null) {
+                aux = aux.prox;
+            }
+            aux.prox = novo;
         } else if (novo.colaborador.getNota() < lista.colaborador.getNota()) {
             novo.prox = lista;
             lista = novo;
@@ -29,8 +37,8 @@ public class ListaEvolucao {
                 novo.prox = lista;
                 lista = novo;
             } else {
+                novo.prox = lista.prox;
                 lista.prox = novo;
-                novo = lista;
             }
         } else {
             NO aux = lista;
@@ -81,7 +89,7 @@ public class ListaEvolucao {
         NO aux = lista;
         Colaborador[] colaboradores = new Colaborador[quantidadeDeVezes];
         for (int i = 0; i < quantidadeDeVezes; i++) {
-            if(aux.colaborador.getNota() == -1){
+            if (aux.colaborador.getNota() == -1) {
                 i++;
             }
             colaboradores[i] = aux.colaborador;

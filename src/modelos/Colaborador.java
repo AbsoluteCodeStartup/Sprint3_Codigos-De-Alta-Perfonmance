@@ -35,4 +35,7 @@ public class Colaborador {
         return nota;
     }
 
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
 }
