@@ -26,7 +26,7 @@ public class Onboarding {
             opcao = le.nextInt();
             switch (opcao) {
                 case 0:
-                    listarFinalizarPrograma();
+                    listarColaboradores(lista);
                     break;
                 case 1:
                     obterPioresNotasNaLista(lista);
@@ -46,18 +46,18 @@ public class Onboarding {
         le.close();
 
     }
-// TODO
-    private static void listarFinalizarPrograma() {
+    private static void listarColaboradores(ListaEvolucao lista) {
+        lista.show();
     }
 
     private static void obterPioresNotasNaLista(ListaEvolucao lista) {
         System.out.print("Quantas notas deseja pegar da lista?: ");
         int quantidadeDeNotas = le.nextInt();
-        while(quantidadeDeNotas > lista.tamanho()){
+        while (quantidadeDeNotas > lista.tamanho()) {
             System.out.print("Quantidade desejada maior que a lista, por favor insira um número menor: ");
             quantidadeDeNotas = le.nextInt();
         }
-        Colaborador[] colaboradores = lista.getColaborador(quantidadeDeNotas);
+        Colaborador[] colaboradores = lista.getColaboradores(quantidadeDeNotas);
 
         System.out.println("----------Colaboradores com piores notas----------");
         for (int i = 0; i < quantidadeDeNotas; i++) {
@@ -67,9 +67,28 @@ public class Onboarding {
 
     }
 
-    //TODO
     private static void atualizarNotaColaborador(ListaEvolucao lista) {
+        System.out.print("Digite o ID do colaborador que deseja atualizar a nota: ");
+        int id = le.nextInt();
+        Colaborador colaborador = lista.getColaborador(id);
+        lista.remove(id);
+        if (colaborador != null) {
+            System.out.println("Escreva a nota que deseja inserir: ");
+            int nota = le.nextInt();
+            while (nota < 0 || nota > 100) {
+                System.out.println("******Nota inválida. Por favor, tente novamente!******\n");
+                System.out.print("Escreva a nota que deseja inserir: ");
+                nota = le.nextInt();
+            }
+
+            colaborador.setNota(nota);
+            lista.add(colaborador);
+            System.out.println("Nota atualizada com sucesso!\n");
+        }
+
+
     }
+
     private static void inserirNovoColaborador(ListaEvolucao lista) {
         System.out.print("ID: ");
         int id = le.nextInt();
@@ -79,11 +98,9 @@ public class Onboarding {
         String setor = le.next();
         System.out.print("Buddy: ");
         String buddy = le.next();
-        lista.add(new Colaborador(id, nome, setor, buddy,-1));
+        lista.add(new Colaborador(id, nome, setor, buddy, -1));
         System.out.println("Colaborador adicionado com sucesso!");
     }
-
-
 
     public static void geraLista(ListaEvolucao lista) {
         /*Altere esse metodo para inserir um objeto da classe Colaborador na lista*/

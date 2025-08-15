@@ -58,7 +58,12 @@ public class ListaEvolucao {
         NO aux = lista;
         System.out.println("*********** Lista ************");
         while (aux != null) {
-            System.out.print(aux.colaborador + "\t");
+            String id = "ID: " + aux.colaborador.getID();
+            String nome = " | Nome: " + aux.colaborador.getNome();
+            String buddy = " | Buddy: " + aux.colaborador.getBuddy();
+            String nota = " | Nota: " + String.valueOf(aux.colaborador.getNota());
+            String modelo = id + nome + buddy + nota;
+            System.out.println(modelo);
             aux = aux.prox;
         }
         System.out.println();
@@ -85,7 +90,7 @@ public class ListaEvolucao {
         return achou;
     }
 
-    public Colaborador[] getColaborador(int quantidadeDeVezes) {
+    public Colaborador[] getColaboradores(int quantidadeDeVezes) {
         NO aux = lista;
         Colaborador[] colaboradores = new Colaborador[quantidadeDeVezes];
         for (int i = 0; i < quantidadeDeVezes; i++) {
@@ -96,6 +101,20 @@ public class ListaEvolucao {
             aux = aux.prox;
         }
         return colaboradores;
+    }
+
+    public Colaborador getColaborador(int id) {
+        NO aux = lista;
+
+        while (aux.prox != null) {
+            if (aux.colaborador.getID() == id) {
+                System.out.println("Colaborador encontrado!");
+                return aux.colaborador;
+            }
+            aux = aux.prox;
+        }
+        System.out.println("Colaborador não encontrado! Tente novamente com outro ID.");
+        return null;
     }
 
     public int tamanho() {
